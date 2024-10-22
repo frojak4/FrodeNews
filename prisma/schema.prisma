@@ -23,6 +23,7 @@ model Post {
   updatedAt DateTime @default(now())
   category  String
   paid      Boolean
+  picture   String   @default("https://media.gq.com/photos/5ad93798ceb93861adb912d8/16:9/w_2560%2Cc_limit/kanye-west-0814-GQ-FEKW01.01.jpg")
   User      User     @relation(fields: [userId], references: [id])
   userId    String   @db.ObjectId
 }

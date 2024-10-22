@@ -1,22 +1,21 @@
-import Image from 'next/image'
+
 import React from 'react'
-import profilePic from '@/lib/pics/blank.webp'
-import { prociono_init } from '@/app/layout'
+import { nunito_init, prociono_init } from '@/app/layout'
+import HeaderProfile from './HeaderProfile'
+import Link from 'next/link'
 
 const Header = () => {
     return (
-        <nav className={"bg-white h-16 flex items-center justify-center text-black" + prociono_init.className}>
-            <div className="w-4/5 flex items-center">
-                <h1 className="text-black text-4xl ml-2 flex-1">FrodeNews</h1>
-                <ul className="flex items-center">
-                    <li className="p-5">Weather</li>
+        <nav className={`${prociono_init.className} bg-white dark:bg-darkpurple dark:text-gray-200 h-16 flex items-center sticky justify-center text-black`}>
+            <div className="w-3/5 flex items-center">
+                <Link href={'/'}><h1 className="text-4xl mx-2">FrodeNews</h1></Link>
+                <ul className="flex items-center flex-1">
+                    <Link href={'/admin/create-post'}><li className="p-5">Create Post</li></Link>
                     <li className="p-5">News</li>
                 </ul>
-                <div className="flex items-center w-4/6 justify-end">
-                    <Image className="rounded-full" alt="profile" src={profilePic} width={50} height={50} />
-
-
-                </div>
+                <span className={nunito_init.className}>
+                    <HeaderProfile />
+                </span>
             </div>
         </nav>
     )

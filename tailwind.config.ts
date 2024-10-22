@@ -11,9 +11,15 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        black: '#121212',
+        darkpurple: '#1E062F',
+        midpurple: '#7A1CAC',
+        lightpurple: '#EBD3F8',
+        sand: '#D8E9A8'
       },
     },
   },
   plugins: [],
+  darkMode: 'class'
 };
 export default config;
