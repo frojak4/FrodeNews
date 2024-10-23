@@ -5,7 +5,9 @@ export const PostSchema = z.object({
     body: z.string().min(15, { message: 'Body must be at least 15 characters long' }).max(500, { message: 'Body can not be longer than 500 characters' }),
     picture: z.string().url({ message: 'Please enter a valid URL' }),
     paid: z.boolean({ message: 'Error' }),
-    category: z.string({ message: 'Please provide a valid category' })
+    category: z.string({ message: 'Please provide a valid category' }),
+    slug: z.string({ message: 'Invalid string' }),
+    userId: z.string()
 })
 
 export type PostSchemaType = z.infer<typeof PostSchema>

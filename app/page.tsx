@@ -1,3 +1,4 @@
+import PostSection from "@/components/PostSection";
 import prisma from "@/lib/db";
 
 export default async function Home() {
@@ -8,10 +9,11 @@ export default async function Home() {
 
 
   return (
-    <div className="bg-slate-50 dark:bg-black h-screen">
-      {data.map((data, i) => {
-        return <h1 key={i}>{data.title}</h1>
-      })}
+    <div className="bg-slate-50 dark:bg-zinc-950 text-zinc-950 dark:text-gray-200">
+      <PostSection />
+      <PostSection />
+      <PostSection />
+      <PostSection />
     </div>
   );
 }

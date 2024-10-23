@@ -1,7 +1,8 @@
 'use client'
 import { createPost } from '@/actions/actions';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const SubmitButton = () => {
@@ -13,15 +14,21 @@ const SubmitButton = () => {
 
 const CreatePostForm = () => {
 
+
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const [paid, setPaid] = useState(false)
     const [picture, setPicture] = useState('')
     const [category, setCategory] = useState('')
+    const [state, formAction] = useFormState(createPost, { error: null, message: '' });
 
-    const [state, formAction] = useFormState(createPost, '');
-
-
+    useEffect(() => {
+        if (state?.error === true) {
+            toast.error(state.message)
+        } else if (state?.error === false) {
+            toast.success(state.message)
+        }
+    }, [state])
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
@@ -46,6 +53,7 @@ const CreatePostForm = () => {
 
     return (
         <form className="mx-auto flex flex-col w-2/5 mt-8 text-zinc-950 dark:text-gray-200" action={formAction}>
+            <Toaster />
             <h3 className="text-left pb-2 dark:text-lightpurple text-midpurple">Title</h3>
             <input className="p-3 border border-zinc-950 dark:border-midpurple mb-6" name="title" type='text' placeholder='Title' value={title} onChange={handleTitleChange} />
             <h3 className="text-left pb-2 dark:text-lightpurple text-midpurple">Body</h3>
@@ -64,7 +72,6 @@ const CreatePostForm = () => {
                         <option value="Entertainment">Entertainment</option>
                     </select>
                 </span>
-                {state}
             </div>
             <SubmitButton />
         </form>

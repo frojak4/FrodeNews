@@ -1,23 +1,45 @@
+'use server'
 import prisma from "@/lib/db";
-import { z } from 'zod'
-import { PostSchema, PostSchemaType } from "@/lib/Schema";
+import { PostSchema } from "@/lib/Schema";
 
 
-export const createPost = async (prevState: string, formData: FormData) => {
+
+export const createPost = async (prevState: { error: boolean | null, message: string }, formData: FormData) => {
+
+
+    const paid = formData.get('paid') === null ? false : true;
+    const title = formData.get('title') as string
+    const slug = title
+        .replace(/\s+/g, "-")
+        .toLowerCase()
+
 
     const ValidatedData = PostSchema.safeParse({
         title: formData.get('title') as string,
         body: formData.get('body') as string,
         picture: formData.get('picture') as string,
         category: formData.get('category') as string,
-        paid: formData.get('paid')
+        paid: paid,
+        slug: slug,
+        userId: '67121b3d33f7cc3529a7ba4b'
     })
 
     if (!ValidatedData.success) {
         let errorMessage = ''
-
+        ValidatedData.error.issues.forEach((issue) => {
+            errorMessage += issue.message + '. '
+        })
+        return { error: true, message: errorMessage }
     }
 
+    console.log(ValidatedData.data)
 
-    return 'Frode2'
+
+    await prisma.post.create({
+        data: ValidatedData.data
+    })
+
+
+
+    return { error: false, message: `Successfully posted ${ValidatedData.data.slug}` };
 }

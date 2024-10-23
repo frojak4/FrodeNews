@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const Header = () => {
     return (
-        <nav className={`${prociono_init.className} bg-white dark:bg-darkpurple dark:text-gray-200 h-16 flex items-center sticky justify-center text-black`}>
+        <nav className={`${prociono_init.className} bg-white dark:bg-darkpurple dark:text-gray-200 h-16 flex items-center sticky justify-center text-black shadow-md`}>
             <div className="w-3/5 flex items-center">
                 <Link href={'/'}><h1 className="text-4xl mx-2">FrodeNews</h1></Link>
                 <ul className="flex items-center flex-1">
