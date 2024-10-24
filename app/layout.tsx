@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Prociono, Nunito } from 'next/font/google'
 import { Providers } from "./providers";
+import Ad from "@/components/ads/Ad";
 
 
 export const prociono_init = Prociono({
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
+          <Ad />
           {children}
         </Providers>
       </body>

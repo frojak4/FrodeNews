@@ -32,7 +32,6 @@ export const createPost = async (prevState: { error: boolean | null, message: st
         return { error: true, message: errorMessage }
     }
 
-    console.log(ValidatedData.data)
 
 
     await prisma.post.create({
@@ -42,4 +41,17 @@ export const createPost = async (prevState: { error: boolean | null, message: st
 
 
     return { error: false, message: `Successfully posted ${ValidatedData.data.slug}` };
+}
+
+
+export const fetchPosts = async (limit: number, skip: number) => {
+    const data = prisma.post.findMany({
+        skip: skip,
+        take: limit,
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    return data;
 }
