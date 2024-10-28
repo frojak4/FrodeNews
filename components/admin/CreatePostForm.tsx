@@ -3,6 +3,8 @@ import { createPost } from '@/actions/actions';
 import React, { useEffect, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import { CiCircleInfo } from "react-icons/ci";
+import Tooltip from '@mui/material/Tooltip'
 
 
 const SubmitButton = () => {
@@ -21,6 +23,9 @@ const CreatePostForm = () => {
     const [picture, setPicture] = useState('')
     const [category, setCategory] = useState('')
     const [state, formAction] = useFormState(createPost, { error: null, message: '' });
+
+
+    const ToolTipText = `FrodeNews uses markdown to display our posts. Click here for a cheat sheet`
 
     useEffect(() => {
         if (state?.error === true) {
@@ -56,7 +61,12 @@ const CreatePostForm = () => {
             <Toaster />
             <h3 className="text-left pb-2 dark:text-lightpurple text-midpurple">Title</h3>
             <input className="p-3 border border-zinc-950 dark:border-midpurple mb-6" name="title" type='text' placeholder='Title' value={title} onChange={handleTitleChange} />
-            <h3 className="text-left pb-2 dark:text-lightpurple text-midpurple">Body</h3>
+            <span className="flex justify-between">
+                <h3 className="text-left pb-2 pr-2 dark:text-lightpurple text-midpurple">Body</h3>
+                <Tooltip arrow title={<>FrodeNews uses markdown to display our posts. <br /> <a className="underline" href="https://www.markdownguide.org/cheat-sheet/">Click here for a cheat sheet</a></>}>
+                    <h1><CiCircleInfo className="text-2xl" /></h1>
+                </Tooltip>
+            </span>
             <textarea className="p-3 border border-zinc-950 dark:border-midpurple mb-6 h-52" name="body" placeholder='Body' value={body} onChange={handleBodyChange} />
             <h3 className="text-left pb-2 dark:text-lightpurple text-midpurple">Picture</h3>
             <input className="p-3 border border-zinc-950 dark:border-midpurple mb-4" name="picture" type='text' placeholder='Picture' value={picture} onChange={handlePictureChange} />
@@ -74,7 +84,7 @@ const CreatePostForm = () => {
                 </span>
             </div>
             <SubmitButton />
-        </form>
+        </form >
     )
 }
 

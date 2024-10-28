@@ -11,7 +11,13 @@ export const createPost = async (prevState: { error: boolean | null, message: st
     const title = formData.get('title') as string
     const slug = title
         .replace(/\s+/g, "-")
-        .toLowerCase()
+        .replace(/æ/g, 'ae')
+        .replace(/å/g, 'aa')
+        .replace(/ø/g, 'o')
+        .replace(/Æ/g, 'Ae')
+        .replace(/Å/g, 'Aa')
+        .replace(/Ø/g, 'O')
+        .toLowerCase();
 
 
     const ValidatedData = PostSchema.safeParse({
