@@ -6,6 +6,7 @@ import * as sanitizeHtml from 'sanitize-html'
 
 
 
+
 const DisplayPostPage = async ({ params }: { params: { slug: string } }) => {
 
     const post = await prisma.post.findUnique({

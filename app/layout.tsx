@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { Prociono, Nunito } from 'next/font/google'
 import { Providers } from "./providers";
 import Ad from "@/components/ads/Ad";
+import { Suspense } from "react";
 
 
 export const prociono_init = Prociono({
@@ -34,7 +35,9 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <Ad />
+          <Suspense fallback={<p>loading...</p>}>
+            <Ad />
+          </Suspense>
           {children}
         </Providers>
       </body>
