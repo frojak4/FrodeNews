@@ -12,7 +12,6 @@ const NormalNewsCard = ({ post, i }: { post: FrontPagePostType, i: number }) => 
         visible: { opacity: 1 }
     }
 
-
     return (
         <MotionDiv variants={variants}
             initial="hidden"
