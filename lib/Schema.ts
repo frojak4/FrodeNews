@@ -10,4 +10,23 @@ export const PostSchema = z.object({
     userId: z.string()
 })
 
+export const SignInSchema = z.object({
+    email: z.string({ message: 'Please enter valid email' }),
+    password: z.string({ message: 'Please enter valid password' })
+})
+
+export const SignUpSchema = z.object({
+    email: z.string().email({ message: 'Please enter valid email' }),
+    fullname: z.string({ message: 'Please enter valid name' }),
+    password: z.string({ message: 'Please enter valid password' })
+        .min(6, { message: 'Passwords must be between 6-24 characters' })
+        .max(24, { message: 'Passwords must be between 6-24 characters' }),
+    repeatPassword: z.string({ message: 'Please enter valid password' })
+})
+    .refine((data) => data.password === data.repeatPassword, {
+        message: 'Passwords do not match',
+        path: ['repeatPassword']
+    })
+
+
 export type PostSchemaType = z.infer<typeof PostSchema>

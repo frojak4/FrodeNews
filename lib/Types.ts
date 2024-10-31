@@ -8,3 +8,15 @@ export type FrontPagePostType = {
     slug: string
 
 }
+
+export type FormState =
+    | {
+        errors?: {
+            fullname?: string[]
+            email?: string[]
+            password?: string[]
+            repeatPassword?: string[]
+        }
+        message?: string
+    }
+    | undefined

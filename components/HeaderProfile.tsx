@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import profilePic from '@/lib/pics/blank.webp'
 import ThemeSwitcher from './ThemeSwitcher'
+import Link from 'next/link'
 
 
 const HeaderProfile = () => {
@@ -23,7 +24,7 @@ const HeaderProfile = () => {
             </div>
             {toggle && <div className={`absolute h-48 w-44 mt-3 rounded-xl border border-black shadow-lg dark:bg-midpurple bg-slate-200 z-10 p-2 flex flex-col text-lg justify-between`}>
                 <span>
-                    <h3 className="border-b border-b-slate-300 dark:border-b-darkpurple p-2">Log In</h3>
+                    <Link href={'/sign-up'}><h3 className="border-b border-b-slate-300 dark:border-b-darkpurple p-2">Log In</h3></Link>
                     <h3 className="border-b border-b-slate-300 dark:border-b-darkpurple p-2">Register</h3>
                 </span>
                 <ThemeSwitcher />

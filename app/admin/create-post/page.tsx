@@ -3,7 +3,7 @@ import React from 'react'
 
 const CreatePost = () => {
     return (
-        <div className="text-center bg-slate-50 dark:bg-black h-screen">
+        <div className="text-center ">
             <h1 className="text-4xl pt-8 text-zinc-950 dark:text-gray-200">Create New Post</h1>
             <CreatePostForm />
         </div>

@@ -8,7 +8,7 @@ const Header = () => {
     return (
         <>
             <div className="h-24 bg-slate-50 dark:bg-zinc-950"></div>
-            <nav className={`${prociono_init.className} bg-white opacity-95 dark:bg-darkpurple dark:text-gray-200 w-screen h-16 flex fixed top-0 z-10 shadow-md items-center justify-center text-black `}>
+            <nav className={`${prociono_init.className} bg-white opacity-95 dark:bg-midpurple dark:text-gray-200 w-screen h-16 flex fixed top-0 z-10 shadow-md items-center justify-center text-black `}>
                 <div className="w-3/5 flex items-center">
                     <Link href={'/'}><h1 className="text-4xl mx-2">FrodeNews</h1></Link>
                     <ul className="flex items-center flex-1">
