@@ -20,3 +20,13 @@ export type FormState =
         message?: string
     }
     | undefined
+
+
+export type SessionPayload = {
+    currentUser: {
+        userId: string,
+        admin: boolean,
+        paid: boolean,
+    }
+    expires: Date,
+}

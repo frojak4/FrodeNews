@@ -1,6 +1,7 @@
 import { SignInAction } from '@/actions/auth'
 import React from 'react'
 import { useFormState } from 'react-dom'
+import SubmitButton from './SubmitButton'
 
 const SignIn = () => {
 
@@ -16,7 +17,8 @@ const SignIn = () => {
                 <h3 className="text-left pb-1 mt-4 dark:text-lightpurple text-midpurple">Password</h3>
                 <input name="password" className="p-2 border border-zinc-950 dark:border-midpurple" type="password" placeholder="Password" />
                 {state?.errors?.password && <p className="text-red-500">{state.errors.password}</p>}
-                <button type="submit" className="p-2 bg-purple-300 dark:bg-midpurple rounded-full mt-8">Sign in</button>
+                {state?.message && <p className="text-red-500 max-w-48">{state.message}</p>}
+                <SubmitButton text="Sign In" />
             </form>
         </div>
     )

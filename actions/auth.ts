@@ -2,7 +2,12 @@
 import prisma from "@/lib/db"
 
 import { SignInSchema, SignUpSchema } from "@/lib/Schema"
+import { decrypt, encrypt } from "@/lib/session"
 import { FormState } from "@/lib/Types"
+import bcrypt from 'bcrypt'
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
+import { NextRequest } from "next/server"
 
 export const SignInAction = async (state: FormState, formData: FormData,) => {
     const ValidatedData = SignInSchema.safeParse({
@@ -16,16 +21,45 @@ export const SignInAction = async (state: FormState, formData: FormData,) => {
         }
     }
 
+
     const user = await prisma.user.findUnique({
         where: {
             email: ValidatedData.data.email.toLowerCase(),
-            password: ValidatedData.data.password
         }
     })
+
+    if (user) {
+        const match = await bcrypt.compare(ValidatedData.data.password, user?.password)
+
+        if (match) {
+            const currentUser = {
+                userId: user.id,
+                admin: user.admin,
+                paid: user.paidUser
+            }
+            const expires = new Date(Date.now() + 60 * 60 * 1000)
+            const session = await encrypt({ currentUser, expires })
+            cookies().set('session', session, { expires, httpOnly: true })
+            redirect('/')
+        } else {
+            return {
+                message: 'Wrong password'
+            }
+        }
+    } else {
+        return {
+            message: 'Could not find account'
+        }
+
+    }
+
+
 
 }
 
 export const SignUpAction = async (state: FormState, formData: FormData) => {
+
+
     const ValidatedData = SignUpSchema.safeParse({
         email: formData.get('email'),
         fullname: formData.get('fullname'),
@@ -38,4 +72,24 @@ export const SignUpAction = async (state: FormState, formData: FormData) => {
             errors: ValidatedData.error.flatten().fieldErrors
         }
     }
+    const hashedPassword = bcrypt.hashSync(ValidatedData.data.password, 10);
+
+    const user = await prisma.user.create({
+        data: {
+            name: ValidatedData.data.fullname,
+            email: ValidatedData.data.email,
+            password: hashedPassword,
+            paidUser: false,
+            admin: false
+        }
+    })
+
+    if (user) {
+        redirect('/')
+    } else {
+        return {
+            message: 'Could not create account'
+        }
+    }
 }
+

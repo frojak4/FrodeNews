@@ -2,6 +2,7 @@
 import { SignUpAction } from '@/actions/auth';
 import React from 'react'
 import { useFormState } from 'react-dom'
+import SubmitButton from './SubmitButton';
 
 
 const SignUp = () => {
@@ -40,8 +41,9 @@ const SignUp = () => {
                         <input name="repeatPassword" className="p-2 border border-zinc-950 dark:border-midpurple" type="password" placeholder="Repeat Password" />
                         {state?.errors?.repeatPassword && <p className="text-red-500 max-w-48">{state.errors.repeatPassword}</p>}
                     </span>
+                    {state?.message && <p className="text-red-500 max-w-48">{state.message}</p>}
                 </div>
-                <button type="submit" className="p-2 bg-purple-300 dark:bg-midpurple rounded-full mt-8">Register</button>
+                <SubmitButton text="Register" />
             </form>
         </div>
     )
