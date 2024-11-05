@@ -34,6 +34,7 @@ const Ad = () => {
     }, [])
 
 
+
     return (
         <>
             <div className="fixed w-1/6 h-1/6 top-40 left-10">

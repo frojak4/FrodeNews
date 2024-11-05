@@ -27,6 +27,9 @@ export async function decrypt(session: string | undefined = '') {
 
 export async function updateSession(request: NextRequest) {
     const session = request.cookies.get('session')?.value;
+    if (!session) {
+        return null;
+    }
     const payload = await decrypt(session) as SessionPayload;
     if (!session || !payload) {
         return null
@@ -43,3 +46,4 @@ export async function updateSession(request: NextRequest) {
 
     return res
 }
+

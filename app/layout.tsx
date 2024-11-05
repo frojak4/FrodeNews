@@ -5,6 +5,8 @@ import { Prociono, Nunito } from 'next/font/google'
 import { Providers } from "./providers";
 import Ad from "@/components/ads/Ad";
 import { Suspense } from "react";
+import { verifySession } from "@/lib/dal";
+import AdCheck from "@/components/ads/AdCheck";
 
 
 export const prociono_init = Prociono({
@@ -23,6 +25,7 @@ export const metadata: Metadata = {
   description: "The most trusted news-source in the world!!",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,7 +39,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           <Suspense fallback={<p>loading...</p>}>
-            <Ad />
+            <AdCheck />
           </Suspense>
           {children}
         </Providers>

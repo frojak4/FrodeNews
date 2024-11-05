@@ -20,12 +20,12 @@ const CreatePostForm = () => {
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const [paid, setPaid] = useState(false)
+    const [postNow, setPostNow] = useState(true);
     const [picture, setPicture] = useState('')
     const [category, setCategory] = useState('')
     const [state, formAction] = useFormState(createPost, { error: null, message: '' });
 
 
-    const ToolTipText = `FrodeNews uses markdown to display our posts. Click here for a cheat sheet`
 
     useEffect(() => {
         if (state?.error === true) {
@@ -49,6 +49,10 @@ const CreatePostForm = () => {
 
     const handlePaidChange = () => {
         setPaid((prev) => !prev)
+    }
+
+    const handlePostNowChange = () => {
+        setPostNow((prev) => !prev)
     }
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -75,6 +79,10 @@ const CreatePostForm = () => {
                     <h3 className="text-left pr-2 dark:text-lightpurple text-midpurple">Paid: </h3>
                     <input className="text-left" type='checkbox' checked={paid} onChange={handlePaidChange} name="paid" />
                 </span>
+                <span className="flex">
+                    <h3 className="text-center pr-2 dark:text-lightpurple text-midpurple">Post now: </h3>
+                    <input className="text-center" type='checkbox' checked={postNow} onChange={handlePostNowChange} name="postNow" />
+                </span>
                 <span>
                     <select className="p-2 border border-zinc-950 dark:border-midpurple mb-6" value={category} name="category" onChange={handleCategoryChange}>
                         <option value="News">News</option>
@@ -83,6 +91,7 @@ const CreatePostForm = () => {
                     </select>
                 </span>
             </div>
+            {!postNow && <div className="mb-6">Time: <input name="date" type="datetime-local" /></div>}
             <SubmitButton />
         </form >
     )

@@ -7,7 +7,8 @@ export const PostSchema = z.object({
     paid: z.boolean({ message: 'Error' }),
     category: z.string({ message: 'Please provide a valid category' }),
     slug: z.string({ message: 'Invalid string' }),
-    userId: z.string()
+    userId: z.string(),
+    postedAt: z.string()
 })
 
 export const SignInSchema = z.object({

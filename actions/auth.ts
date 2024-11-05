@@ -2,12 +2,12 @@
 import prisma from "@/lib/db"
 
 import { SignInSchema, SignUpSchema } from "@/lib/Schema"
-import { decrypt, encrypt } from "@/lib/session"
+import { encrypt } from "@/lib/session"
 import { FormState } from "@/lib/Types"
 import bcrypt from 'bcrypt'
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { NextRequest } from "next/server"
+
 
 export const SignInAction = async (state: FormState, formData: FormData,) => {
     const ValidatedData = SignInSchema.safeParse({
@@ -79,8 +79,8 @@ export const SignUpAction = async (state: FormState, formData: FormData) => {
             name: ValidatedData.data.fullname,
             email: ValidatedData.data.email,
             password: hashedPassword,
-            paidUser: false,
-            admin: false
+            paidUser: true,
+            admin: true
         }
     })
 
@@ -91,5 +91,9 @@ export const SignUpAction = async (state: FormState, formData: FormData) => {
             message: 'Could not create account'
         }
     }
+}
+
+export const SignOut = async () => {
+    cookies().set('session', '', { expires: new Date(0) })
 }
 

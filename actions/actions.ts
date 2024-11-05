@@ -1,13 +1,29 @@
 'use server'
+import { verifySession } from "@/lib/dal";
 import prisma from "@/lib/db";
 import { PostSchema } from "@/lib/Schema";
+import { SessionPayload } from "@/lib/Types";
 
 
 
 export const createPost = async (prevState: { error: boolean | null, message: string }, formData: FormData) => {
 
 
+    const session = await verifySession() as SessionPayload | false;
+
+    if (!session) {
+        return
+    }
+    if (!session.currentUser.admin) {
+        return
+    }
+
     const paid = formData.get('paid') === null ? false : true;
+
+    const date = formData.get('postNow') === null ? new Date(formData.get('date') as string).toISOString() : new Date(Date.now()).toISOString()
+
+    console.log(date);
+
     const title = formData.get('title') as string
     const slug = title
         .replace(/\s+/g, "-")
@@ -27,8 +43,10 @@ export const createPost = async (prevState: { error: boolean | null, message: st
         category: formData.get('category') as string,
         paid: paid,
         slug: slug,
-        userId: '67121b3d33f7cc3529a7ba4b'
+        userId: session.currentUser.userId,
+        postedAt: date,
     })
+
 
     if (!ValidatedData.success) {
         let errorMessage = ''
@@ -56,6 +74,11 @@ export const fetchPosts = async (limit: number, skip: number) => {
         take: limit,
         orderBy: {
             createdAt: 'desc'
+        },
+        where: {
+            postedAt: {
+                lt: new Date().toISOString()
+            }
         }
     })
 

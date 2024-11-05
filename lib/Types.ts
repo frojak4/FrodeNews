@@ -30,3 +30,10 @@ export type SessionPayload = {
     }
     expires: Date,
 }
+
+export type Session =
+    false | {
+        userId: string,
+        admin: boolean,
+        paidUser: boolean,
+    }
