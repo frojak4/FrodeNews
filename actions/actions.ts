@@ -3,6 +3,7 @@ import { verifySession } from "@/lib/dal";
 import prisma from "@/lib/db";
 import { PostSchema } from "@/lib/Schema";
 import { SessionPayload } from "@/lib/Types";
+import { revalidatePath } from "next/cache";
 
 
 
@@ -65,6 +66,19 @@ export const createPost = async (prevState: { error: boolean | null, message: st
 
 
     return { error: false, message: `Successfully posted ${ValidatedData.data.slug}` };
+}
+
+export const deletePost = async (prevState: { error: boolean | null, message: string }, formData: FormData) => {
+
+    const slug = formData.get('slug') as string;
+
+    await prisma.post.delete({
+        where: {
+            slug: slug
+        }
+    })
+
+    revalidatePath('/admin/dashboard');
 }
 
 

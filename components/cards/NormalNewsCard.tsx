@@ -17,7 +17,7 @@ const NormalNewsCard = ({ post, i }: { post: FrontPagePostType, i: number }) => 
             initial="hidden"
             animate="visible"
             transition={{
-                delay: i * 0.5,
+                delay: i * 0.25,
                 ease: "easeInOut",
                 duration: 0.5
             }}

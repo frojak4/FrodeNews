@@ -5,6 +5,7 @@ import { SignInSchema, SignUpSchema } from "@/lib/Schema"
 import { encrypt } from "@/lib/session"
 import { FormState } from "@/lib/Types"
 import bcrypt from 'bcrypt'
+import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
@@ -94,6 +95,7 @@ export const SignUpAction = async (state: FormState, formData: FormData) => {
 }
 
 export const SignOut = async () => {
-    cookies().set('session', '', { expires: new Date(0) })
+    cookies().set('session', '', { expires: new Date(0) });
+    revalidatePath('/')
 }
 

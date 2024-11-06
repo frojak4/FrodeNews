@@ -20,9 +20,15 @@ const Header = async () => {
                     <Link href={'/'}><h1 className="text-4xl mx-2">FrodeNews</h1></Link>
                     <ul className="flex items-center flex-1">
                         {session && session.currentUser.paid &&
-                            <Link href={'/admin/create-post'}><li className="p-5">Create Post</li></Link>
+                            <>
+                                <Link href={'/admin/create-post'}>
+                                    <li className="p-5">Create Post</li>
+                                </Link>
+                                <Link href={'/admin/dashboard'}>
+                                    <li className="p-5">Dashboard</li>
+                                </Link>
+                            </>
                         }
-                        <li className="p-5">News</li>
                     </ul>
                     <span className={nunito_init.className}>
                         <HeaderProfile />
