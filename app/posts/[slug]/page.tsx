@@ -6,6 +6,7 @@ import * as sanitizeHtml from 'sanitize-html'
 import { verifySession } from '@/lib/dal'
 import Link from 'next/link'
 import { SessionPayload } from '@/lib/Types'
+import dayjs from 'dayjs'
 
 
 
@@ -49,7 +50,8 @@ const DisplayPostPage = async ({ params }: { params: { slug: string } }) => {
                         </div>
                         <h1 className="text-6xl pt-6">{post.title}</h1>
                     </div>
-                    <h3 className="text-lg">Written by {creator?.name}</h3>
+                    <h3 className="text-lg text-start font-semibold">Written by {creator?.name}</h3>
+                    <h3 className="text-start">Posted {dayjs(post.postedAt).format('hh:mm, DD MMMM')}</h3>
                     <div className="text-left w-3/4 pt-8 mx-auto prose prose-slate prose-xl
                      dark:prose-invert prose-h1:text-xl">
 

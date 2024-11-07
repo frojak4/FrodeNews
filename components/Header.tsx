@@ -12,6 +12,12 @@ const Header = async () => {
 
     const session = await verifySession() as SessionPayload | false;
 
+    const signOutAction = async () => {
+        'use server'
+        await SignOut()
+        redirect('/')
+    }
+
     return (
         <>
             <div className="h-24 bg-slate-50 dark:bg-zinc-950"></div>
@@ -31,17 +37,8 @@ const Header = async () => {
                         }
                     </ul>
                     <span className={nunito_init.className}>
-                        <HeaderProfile />
+                        {session ? <HeaderProfile session={session} signOut={signOutAction} /> : <HeaderProfile session={false} />}
                     </span>
-                    {session &&
-                        <form action={async () => {
-                            'use server'
-                            await SignOut()
-                            redirect('/')
-                        }}>
-                            <button type="submit">Logout</button>
-                        </form>
-                    }
                 </div>
             </nav>
         </>

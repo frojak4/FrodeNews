@@ -33,7 +33,7 @@ const DashboardPostCard = ({ post }: DashBoardPostCardType) => {
                 <Image alt={post.title} src={post.picture} width={150} height={150} />
             </div>
             <div className="flex-1">
-                <Link href={`posts/${post.slug}`}>
+                <Link href={`/posts/${post.slug}`}>
                     <h1 className="p-2 text-xl font-semibold truncate">{post.title}</h1>
                 </Link>
                 <h3 className="p-2">{posted ? `Posted at ${date}` : `Will be posted at ${date}`}</h3>
