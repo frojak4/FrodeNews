@@ -30,9 +30,15 @@ const HeaderProfile = ({ session, signOut }: { session: SessionPayload | false, 
             </div>
             {toggle && <div className={`absolute h-48 w-44 mt-3 rounded-xl border border-black shadow-lg dark:bg-midpurple bg-slate-200 z-10 p-2 flex flex-col text-lg justify-between`}>
                 <span>
-                    {session ? <form action={signOut}>
-                        <button className="border-b border-b-slate-300 dark:border-b-darkpurple p-2 w-full text-start" type="submit">Log out</button>
-                    </form> :
+                    {session ?
+                        <form action={signOut}>
+                            <h3 className="border-b border-b-slate-300 dark:border-b-darkpurple p-2 text-sm">
+                                {session.currentUser.admin && 'Logged in as admin'}
+                                {session.currentUser.paid && !session.currentUser.admin && 'Logged in as paid user'}
+                                {!session.currentUser.paid && 'Logged in as free user'}
+                            </h3>
+                            <button className="border-b border-b-slate-300 dark:border-b-darkpurple p-2 w-full text-start" type="submit">Log out</button>
+                        </form> :
                         <Link href={'/sign-up'}><h3 className="border-b border-b-slate-300 dark:border-b-darkpurple p-2">Log In / Register</h3></Link>}
                 </span>
                 <ThemeSwitcher />

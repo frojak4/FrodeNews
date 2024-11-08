@@ -18,7 +18,7 @@ const Dashboard = async () => {
 
     const posts = await prisma.post.findMany({
         orderBy: {
-            createdAt: 'desc'
+            postedAt: 'desc'
         }
     })
 
@@ -26,7 +26,6 @@ const Dashboard = async () => {
     return (
         <div className="w-4/6 mx-auto">
             {posts.map((post, i) => {
-
                 return <DashboardPostCard key={i} post={post} />
             })}
         </div>
